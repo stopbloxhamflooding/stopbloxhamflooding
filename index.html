@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stop Bloxham Flooding</title>
+<meta name="description" content="Community information about flood alleviation works in Bloxham, Oxfordshire.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header><div class="wrap nav"><a class="brand" href="#">STOP BLOXHAM FLOODING</a>
+<nav><a href="#progress">Progress</a><a href="#evidence">Evidence</a><a href="#questions">Questions</a><a href="admin.html">Admin</a></nav></div></header>
+<section class="hero"><div class="wrap"><p class="eyebrow">Community information · Bloxham, Oxfordshire</p>
+<h1>Keeping Bloxham informed about flooding.</h1>
+<p>A clear, independent public record of flood alleviation works, decisions, progress, evidence and residents' questions.</p>
+<a class="btn" href="#questions">Ask a question</a></div></section>
+<main class="wrap">
+<div class="dash"><div class="stat"><b id="status">Loading…</b><small>Overall status</small></div><div class="stat"><b id="updated">Loading…</b><small>Latest update</small></div><div class="stat"><b id="focus">Loading…</b><small>Current focus</small></div></div>
+<section id="progress"><p class="kicker">Project dashboard</p><h2>What is happening?</h2><div id="projects" class="grid"></div>
+<h3>Project journey</h3><div class="timeline"><div>01<br><b>Problem</b></div><div>02<br><b>Investigation</b></div><div>03<br><b>Options</b></div><div>04<br><b>Funding</b></div><div>05<br><b>Works</b></div><div>06<br><b>Review</b></div></div></section>
+<section id="map"><p class="kicker">Geography</p><h2>Where are the works?</h2><div class="map"><div>🗺️<h3>Interactive project map</h3><p>The production build is ready for editable project locations. Map integration can be added without changing the database.</p></div></div></section>
+<section id="evidence"><p class="kicker">Transparency</p><h2>Evidence & updates</h2><div class="grid"><div class="card"><h3>Latest update</h3><div id="latest"></div></div><div class="card"><h3>Official sources</h3><p><a href="https://www.bloxhamparishcouncil.gov.uk/" target="_blank" rel="noopener">Bloxham Parish Council →</a></p><p><a href="https://check-for-flooding.service.gov.uk/station/7061" target="_blank" rel="noopener">Bloxham Brook monitoring →</a></p></div><div class="card"><h3>Documents</h3><div id="documents">Loading…</div></div></div></section>
+<section id="questions"><p class="kicker">Have your say</p><h2>Residents' questions & comments</h2><div class="notice"><b>Moderated:</b> submissions are reviewed before publication. Please avoid personal information about other residents.</div><div id="published"></div>
+<div class="card form-card"><h3>Submit a question, observation or comment</h3><form id="questionForm"><input name="name" required maxlength="100" placeholder="Your name"><input name="email" type="email" required maxlength="200" placeholder="Your email (not published)"><select name="type"><option>Question</option><option>Observation</option><option>Comment</option><option>Report an issue</option></select><textarea name="body" required maxlength="5000" placeholder="Your message"></textarea><label class="check"><input type="checkbox" name="consent" required> I agree that my submission may be published after moderation.</label><button class="btn">Submit for review</button><p id="formMessage" class="muted"></p></form></div></section>
+</main><footer><div class="wrap"><b>Stop Bloxham Flooding</b><br>Community information for Bloxham, Oxfordshire.</div></footer>
+<script type="module" src="app.js"></script>
+</body></html>
