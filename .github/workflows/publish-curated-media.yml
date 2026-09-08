@@ -20,36 +20,18 @@ jobs:
           mkdir -p media/flood-archive
           python - <<'PY'
           import gdown
-          files={
-          '20241124_140927.jpg':'1BV4v8AKo-ZQ6RqX7cng1n0FSeH0wNcf6',
-          '20241124_142452.jpg':'1-r6Z7R7MrwydAZ0w68COhpx-k7oBIagF',
-          '20241124_142619.jpg':'1-tnHeX_VcpTFp8PkbC_zuonoRSsNcXrT',
-          '20241124_145734.jpg':'1-yCwkvkSaEa2XCWnN2NF0YMetrCUdg7F',
-          '20241124_162336.jpg':'1B-UVzY-DByBhnJzJeVN3sx7yFLHZn9Ov',
-          '20241126_140818.jpg':'1FX_FD_jGqIOZZk9IFO564IUTxTf7B4HE',
-          '20241128_123158.jpg':'1FbbhJosw5cYV-OgkOg2VqgLrOOT2wREw',
-          '20250103_093524.jpg':'1IczK5Y7oq3k3zo8bNKD6qMjxh3Wfkupq',
-          '20250322_153632.jpg':'17xXAovOwz55x4BcFwTV2sCUQSS5rIk1d',
-          '20250427_093059.jpg':'1WE4Vxi_twKXkizYehVvGrazniN_MHb0e',
-          '20241124_140955.mp4':'1BSdjlPYXdyiod6CI7zAzovKaW2GOxLn3',
-          '20241124_141318.mp4':'1B9Q5mGSpKBD-VykUq2103lWJht2HgDqa',
-          '20241129_114334.mp4':'13MObtFuf8XInoY026iPGwcg4dz26Xarv'}
-          for name,id in files.items():
-              gdown.download(id=id, output='media/flood-archive/'+name, quiet=False)
+          files={'20241124_140927.jpg':'1BV4v8AKo-ZQ6RqX7cng1n0FSeH0wNcf6','20241124_142452.jpg':'1-r6Z7R7MrwydAZ0w68COhpx-k7oBIagF','20241124_142619.jpg':'1-tnHeX_VcpTFp8PkbC_zuonoRSsNcXrT','20241124_145734.jpg':'1-yCwkvkSaEa2XCWnN2NF0YMetrCUdg7F','20241124_162336.jpg':'1B-UVzY-DByBhnJzJeVN3sx7yFLHZn9Ov','20241126_140818.jpg':'1FX_FD_jGqIOZZk9IFO564IUTxTf7B4HE','20241128_123158.jpg':'1FbbhJosw5cYV-OgkOg2VqgLrOOT2wREw','20250103_093524.jpg':'1IczK5Y7oq3k3zo8bNKD6qMjxh3Wfkupq','20250322_153632.jpg':'17xXAovOwz55x4BcFwTV2sCUQSS5rIk1d','20250427_093059.jpg':'1WE4Vxi_twKXkizYehVvGrazniN_MHb0e','20241124_140955.mp4':'1BSdjlPYXdyiod6CI7zAzovKaW2GOxLn3','20241124_141318.mp4':'1B9Q5mGSpKBD-VykUq2103lWJht2HgDqa','20241129_114334.mp4':'13MObtFuf8XInoY026iPGwcg4dz26Xarv'}
+          for name,id in files.items(): gdown.download(id=id,output='media/flood-archive/'+name,quiet=False)
           PY
       - name: Privacy treatment and web optimisation
         run: |
           python - <<'PY'
           from PIL import Image,ImageFilter,ImageOps
           from pathlib import Path
-          d=Path('media/flood-archive')
-          # Blur vehicle registration areas in the principal external photograph.
-          p=d/'20241124_140927.jpg'; im=ImageOps.exif_transpose(Image.open(p)).convert('RGB')
-          # Coordinates are deliberately generous around the visible registration plates.
+          d=Path('media/flood-archive'); p=d/'20241124_140927.jpg'; im=ImageOps.exif_transpose(Image.open(p)).convert('RGB')
           for box in [(3370,690,3485,760),(2210,575,2295,640),(2385,565,2465,625)]:
-              crop=im.crop(box).filter(ImageFilter.GaussianBlur(18)); im.paste(crop,box)
+              im.paste(im.crop(box).filter(ImageFilter.GaussianBlur(18)),box)
           im.save(p,quality=88,optimize=True)
-          # Normalise orientation and reduce oversized stills for fast web delivery.
           for p in d.glob('*.jpg'):
               if p.name=='20241124_140927.jpg': continue
               im=ImageOps.exif_transpose(Image.open(p)).convert('RGB')
@@ -62,4 +44,5 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add media/flood-archive
           git diff --cached --quiet || git commit -m 'Publish curated flood photographs and videos'
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
